@@ -5,7 +5,16 @@
 @source '../**/*.blade.php';
 @source '../**/*.js';
 
+
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif;
+
+    /* Paleta de colores SDS 2026 */
+    --color-verde: #6BB14D;
+    --color-verde-claro: #78C802;
+    --color-azul-oscuro: #060342;
+    --color-celeste: #53A3B4;
+    --color-negro: #000000;
+    --color-blanco: #FFFFFF;
 }
+@source inline("grid-cols-3 lg:grid-cols-3");
