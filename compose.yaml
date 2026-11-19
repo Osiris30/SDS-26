@@ -1,0 +1,21 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: sds26-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_DATABASE:-sds26_db}
+      POSTGRES_USER: ${DB_USERNAME:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-root123}
+    ports:
+      - "${DB_FORWARD_PORT:-5433}:5432"
+    volumes:
+      - sds26-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-postgres} -d ${DB_DATABASE:-sds26_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  sds26-postgres-data:
