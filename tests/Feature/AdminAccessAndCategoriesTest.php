@@ -75,4 +75,15 @@ class AdminAccessAndCategoriesTest extends TestCase
             ->assertDontSee('Borrador privado')
             ->assertDontSee('Otra categoría');
     }
+
+    public function test_public_search_matches_published_titles_excerpts_or_bodies(): void
+    {
+        Post::create(['title' => 'Cultivos conectados', 'slug' => 'cultivos-conectados', 'excerpt' => 'Tecnología para el campo.', 'body' => 'Sensores IoT para agricultura.', 'is_published' => true, 'published_at' => now()]);
+        Post::create(['title' => 'Borrador IoT', 'slug' => 'borrador-iot', 'body' => 'Cultivos.', 'is_published' => false]);
+
+        $this->get(route('home', ['q' => 'AGRICULTURA']))
+            ->assertOk()
+            ->assertSee('Cultivos conectados')
+            ->assertDontSee('Borrador IoT');
+    }
 }

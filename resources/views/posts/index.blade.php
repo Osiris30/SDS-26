@@ -13,14 +13,15 @@
             <a class="button button-primary" href="#publicaciones">Explorar publicaciones <span>↓</span></a>
         </div>
         <div class="hero-art" aria-hidden="true">
-            <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
-            <div class="sun-disc"></div>
-            <div class="field field-back"></div><div class="field field-front"></div>
-            <div class="sensor"><span class="sensor-waves">⌁</span><span class="sensor-leaf">✳</span></div>
-            <div class="art-caption"><span>01 / 26</span><b>GREEN<br>FUTURE</b></div>
-            <div class="art-stamp">IoT<br>UES</div>
+            <img class="hero-illustration" src="{{ asset('images/green-iot-field.svg') }}" alt="">
         </div>
         <div class="hero-bottom"><span>SEMANA DE SISTEMAS 2026</span><span>DESLIZA PARA DESCUBRIR <b>↓</b></span></div>
+    </section>
+
+    <section class="event-strip" aria-label="Información de la Semana de Sistemas">
+        <div><span class="event-index">01</span><p><b>16—19 NOV</b><small>SEMANA DE SISTEMAS 2026</small></p></div>
+        <div><span class="event-index">02</span><p><b>FMO · UES</b><small>FACULTAD MULTIDISCIPLINARIA DE OCCIDENTE</small></p></div>
+        <div><span class="event-index">03</span><p><b>GREEN IoT</b><small>TECNOLOGÍA CON PROPÓSITO</small></p></div>
     </section>
 
     <section class="content-section" id="publicaciones">
@@ -29,18 +30,27 @@
             <p class="section-intro">Conoce lo que está pasando: ponencias, proyectos y voces que imaginan un futuro más conectado y sostenible.</p>
         </div>
 
+        <form action="{{ route('home') }}" method="GET" class="search-toolbar" role="search">
+            <label class="sr-only" for="post-search">Buscar publicaciones</label>
+            <span class="search-icon" aria-hidden="true">⌕</span>
+            <input id="post-search" name="q" type="search" value="{{ $search }}" placeholder="Busca una idea, ponencia o proyecto…" maxlength="100">
+            @if($selectedCategory)<input type="hidden" name="categoria" value="{{ $selectedCategory }}">@endif
+            @if($search)<a class="search-clear" href="{{ route('home', array_filter(['categoria' => $selectedCategory ?: null])) }}">Limpiar</a>@endif
+            <button type="submit" aria-label="Buscar">Buscar <span>↗</span></button>
+        </form>
+
         <div class="category-bar" id="categorias">
             <span class="category-label">Explorar por tema</span>
             <div class="category-links">
-                <a @class(['category-chip', 'selected' => !$selectedCategory]) href="{{ route('home') }}">Todo <small>{{ $posts->total() }}</small></a>
+                <a @class(['category-chip', 'selected' => !$selectedCategory]) href="{{ route('home', array_filter(['q' => $search ?: null])) }}">Todo <small>{{ $posts->total() }}</small></a>
                 @foreach($categories as $category)
-                    <a @class(['category-chip', 'selected' => $selectedCategory === $category->slug]) href="{{ route('home', ['categoria' => $category->slug]) }}">{{ $category->name }} <small>{{ $category->posts_count }}</small></a>
+                    <a @class(['category-chip', 'selected' => $selectedCategory === $category->slug]) href="{{ route('home', array_filter(['categoria' => $category->slug, 'q' => $search ?: null])) }}">{{ $category->name }} <small>{{ $category->posts_count }}</small></a>
                 @endforeach
             </div>
         </div>
 
         @if($posts->isEmpty())
-            <div class="empty-state"><span class="empty-icon">✳</span><h3>{{ $selectedCategory ? 'Todavía no hay publicaciones en este tema.' : 'Las historias están por comenzar.' }}</h3><p>Vuelve pronto para descubrir las novedades de la Semana de Sistemas.</p></div>
+            <div class="empty-state"><span class="empty-icon">✳</span><h3>{{ $search ? 'No encontramos publicaciones con esa búsqueda.' : ($selectedCategory ? 'Todavía no hay publicaciones en este tema.' : 'Las historias están por comenzar.') }}</h3><p>{{ $search ? 'Prueba con otras palabras o limpia el filtro para ver todas las publicaciones.' : 'Vuelve pronto para descubrir las novedades de la Semana de Sistemas.' }}</p></div>
         @else
             <div class="post-grid">
                 @foreach($posts as $index => $post)
