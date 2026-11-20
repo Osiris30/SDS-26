@@ -17,6 +17,17 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Administrador SDS26', 'password' => env('ADMIN_PASSWORD', 'cambia-esta-clave'), 'is_admin' => true],
         );
 
+        foreach ([
+            ['Administrador UES', 'admin@ues.edu.sv'],
+            ['Arturo', 'arturo@ues.edu.sv'],
+            ['Osiris', 'osiris@ues.edu.sv'],
+        ] as [$name, $email]) {
+            User::updateOrCreate(
+                ['email' => $email],
+                ['name' => $name, 'password' => '123456', 'is_admin' => true],
+            );
+        }
+
         $activities = [
             ['Ponencias', 'ponencias', 'Tema, persona expositora, ideas centrales y aprendizajes.'],
             ['Talleres', 'talleres', 'Herramientas, procedimiento, práctica y resultados.'],
