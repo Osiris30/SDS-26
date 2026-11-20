@@ -16,7 +16,7 @@ class PublicPostController extends Controller
         $search = mb_substr($search, 0, 100);
 
         $posts = Post::query()
-            ->with(['category', 'author'])
+            ->with(['category', 'author', 'images'])
             ->where('is_published', true)
             ->whereNotNull('published_at')
             ->where('published_at', '<=', now())
@@ -26,9 +26,11 @@ class PublicPostController extends Controller
                 $query->where(fn ($matches) => $matches
                     ->whereRaw('LOWER(title) LIKE ?', [$term])
                     ->orWhereRaw('LOWER(excerpt) LIKE ?', [$term])
+                    ->orWhereRaw('LOWER(authors) LIKE ?', [$term])
                     ->orWhereRaw('LOWER(body) LIKE ?', [$term]));
             })
-            ->latest('published_at')
+            ->orderByDesc('activity_date')
+            ->orderByDesc('published_at')
             ->paginate(9)
             ->withQueryString();
 
@@ -38,5 +40,18 @@ class PublicPostController extends Controller
             'selectedCategory' => $category,
             'search' => $search,
         ]);
+    }
+
+    public function show(string $slug): View
+    {
+        $post = Post::query()
+            ->with(['category', 'author', 'images'])
+            ->where('slug', $slug)
+            ->where('is_published', true)
+            ->whereNotNull('published_at')
+            ->where('published_at', '<=', now())
+            ->firstOrFail();
+
+        return view('posts.show', compact('post'));
     }
 }

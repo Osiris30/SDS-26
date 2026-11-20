@@ -8,7 +8,7 @@
         <a href="{{ route('home') }}#categorias">Categorías</a>
         @auth
             @if(auth()->user()->isAdmin())
-                <a href="{{ route('admin.categories.index') }}">Administración</a>
+                <a href="{{ route('admin.dashboard') }}">Panel admin</a>
                 <form action="{{ route('logout') }}" method="POST" class="nav-form">@csrf<button class="nav-login" type="submit">Salir</button></form>
             @endif
         @else

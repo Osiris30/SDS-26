@@ -13,7 +13,7 @@ class AdminSessionController extends Controller
     public function create(): View|RedirectResponse
     {
         if (auth()->check()) {
-            return auth()->user()->isAdmin() ? redirect()->route('admin.categories.index') : redirect()->route('home');
+            return auth()->user()->isAdmin() ? redirect()->route('admin.dashboard') : redirect()->route('home');
         }
 
         return view('auth.login');
@@ -37,7 +37,7 @@ class AdminSessionController extends Controller
             return back()->withErrors(['email' => 'Esta cuenta no tiene permisos de administración.'])->onlyInput('email');
         }
 
-        return redirect()->intended(route('admin.categories.index'));
+        return redirect()->intended(route('admin.dashboard'));
     }
 
     public function destroy(Request $request): RedirectResponse

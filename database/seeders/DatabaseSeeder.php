@@ -17,8 +17,18 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Administrador SDS26', 'password' => env('ADMIN_PASSWORD', 'cambia-esta-clave'), 'is_admin' => true],
         );
 
-        foreach ([['IoT y tecnología', 'iot-tecnologia'], ['Sostenibilidad', 'sostenibilidad'], ['Vida universitaria', 'vida-universitaria']] as [$name, $slug]) {
-            \App\Models\Category::firstOrCreate(['slug' => $slug], ['name' => $name, 'description' => 'Noticias y actividades de '.$name.'.']);
+        $activities = [
+            ['Ponencias', 'ponencias', 'Tema, persona expositora, ideas centrales y aprendizajes.'],
+            ['Talleres', 'talleres', 'Herramientas, procedimiento, práctica y resultados.'],
+            ['Bingo', 'bingo', 'Dinámica, experiencia y participación.'],
+            ['Feria de proyectos', 'feria-de-proyectos', 'Proyectos visitados, tecnologías e innovación.'],
+            ['Comelona de pizza', 'comelona-de-pizza', 'Desarrollo, convivencia y experiencia.'],
+            ['Torneo de fútbol sala', 'torneo-de-futbol-sala', 'Desarrollo, equipos y participación como jugador o espectador.'],
+            ['Parrillada', 'parrillada', 'Descripción, convivencia y reflexión.'],
+        ];
+
+        foreach ($activities as [$name, $slug, $description]) {
+            \App\Models\Category::firstOrCreate(['slug' => $slug], ['name' => $name, 'description' => $description]);
         }
     }
 }

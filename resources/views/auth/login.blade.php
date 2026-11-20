@@ -9,7 +9,7 @@
         <a class="back-link" href="{{ route('home') }}">← Volver al sitio</a>
         <p class="eyebrow eyebrow-dark">ACCESO SEGURO <span class="eyebrow-line"></span> ADMIN</p>
         <h1>Qué bueno<br><em>tenerte aquí.</em></h1>
-        <p class="login-intro">Ingresa con tu cuenta de administrador para organizar los temas de la comunidad.</p>
+        <p class="login-intro">Ingresa con tu cuenta de administrador para redactar publicaciones, gestionar imágenes y organizar las categorías del blog.</p>
         <form action="{{ route('login.store') }}" method="POST" class="auth-form">
             @csrf
             <label for="email">Correo electrónico</label>

@@ -56,15 +56,16 @@
                 @foreach($posts as $index => $post)
                     <article class="post-card">
                         <div class="post-visual visual-{{ $index % 3 }}" aria-hidden="true">
+                            @if($post->image_path)<img class="post-cover-image" src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($post->image_path) }}" alt="">@endif
                             <span class="visual-kicker">SDS<span>26</span> · {{ str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT) }}</span>
                             <span class="visual-symbol">{{ ['⌁', '✳', '◉'][$index % 3] }}</span>
                             <span class="visual-caption">GREEN<br>IoT</span>
                             <span class="visual-arrow">↗</span>
                         </div>
-                        <div class="post-meta"><span>{{ $post->category?->name ?? 'Comunidad' }}</span><time>{{ optional($post->published_at)->translatedFormat('d M, Y') }}</time></div>
-                        <h3>{{ $post->title }}</h3>
+                        <div class="post-meta"><span>{{ $post->category?->name ?? 'Comunidad' }}</span><time>{{ optional($post->activity_date)->translatedFormat('d M, Y') }}</time></div>
+                        <h3><a href="{{ route('posts.show', $post->slug) }}">{{ $post->title }}</a></h3>
                         <p class="post-excerpt">{{ $post->excerpt ?: \Illuminate\Support\Str::limit(strip_tags($post->body), 145) }}</p>
-                        <div class="post-byline"><span class="byline-dot"></span>{{ $post->author?->name ?? 'Equipo SDS26' }}<span class="read-more">LEER MÁS <b>↗</b></span></div>
+                        <div class="post-byline"><span class="byline-dot"></span><span>{{ $post->authors ?: ($post->author?->name ?? 'Equipo SDS26') }}</span><a class="read-more" href="{{ route('posts.show', $post->slug) }}">LEER MÁS <b>↗</b></a></div>
                     </article>
                 @endforeach
             </div>
