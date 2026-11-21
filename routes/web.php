@@ -5,10 +5,13 @@ use App\Http\Controllers\Auth\AdminSessionController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\AdminPostController;
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\AdminEvidenceController;
 use App\Http\Controllers\PublicPostController;
+use App\Http\Controllers\PublicEvidenceController;
 
 Route::get('/', [PublicPostController::class, 'index'])->name('home');
 Route::view('/semana-2026', 'event.index')->name('event');
+Route::get('/evidencias/{profile}', [PublicEvidenceController::class, 'show'])->where('profile', 'bryan|osiris')->name('evidence.profile');
 Route::get('/publicaciones/{slug}', [PublicPostController::class, 'show'])->name('posts.show');
 Route::get('/iniciar-sesion', [AdminSessionController::class, 'create'])->name('login');
 Route::post('/iniciar-sesion', [AdminSessionController::class, 'store'])->middleware('throttle:5,1')->name('login.store');
@@ -16,6 +19,9 @@ Route::post('/cerrar-sesion', [AdminSessionController::class, 'destroy'])->middl
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/', AdminDashboardController::class)->name('dashboard');
+    Route::get('/evidencias', [AdminEvidenceController::class, 'index'])->name('evidence.index');
+    Route::post('/evidencias', [AdminEvidenceController::class, 'store'])->name('evidence.store');
+    Route::delete('/evidencias/{evidence}', [AdminEvidenceController::class, 'destroy'])->name('evidence.destroy');
     Route::resource('categorias', CategoryController::class)->names('categories')->except('show');
     Route::resource('publicaciones', AdminPostController::class)->names('posts')->parameters(['publicaciones' => 'post'])->except('show');
 });

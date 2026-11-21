@@ -9,6 +9,9 @@
             <a href="{{ route('admin.dashboard') }}" @class(['active' => request()->routeIs('admin.dashboard')])>Resumen</a>
             <a href="{{ route('admin.posts.index') }}" @class(['active' => request()->routeIs('admin.posts.*')])>Publicaciones</a>
             <a href="{{ route('admin.categories.index') }}" @class(['active' => request()->routeIs('admin.categories.*')])>Categor&iacute;as</a>
+            @if(collect(config('evidence-profiles'))->contains(fn ($profile) => in_array(auth()->user()->email, $profile['emails'], true)))
+                <a href="{{ route('admin.evidence.index') }}" @class(['active' => request()->routeIs('admin.evidence.*')])>Evidencias</a>
+            @endif
             <a class="nav-preview" href="{{ route('home') }}">Ver sitio <span aria-hidden="true">&#8599;</span></a>
             <form action="{{ route('logout') }}" method="POST" class="nav-form">@csrf<button class="nav-login" type="submit">Salir</button></form>
         @else

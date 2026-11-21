@@ -137,6 +137,7 @@ class AdminPostController extends Controller
     public function destroy(Post $post): RedirectResponse
     {
         $paths = $post->images()->pluck('path')->all();
+        $paths = [...$paths, ...$post->activityEvidences()->pluck('image_path')->all()];
         if ($post->image_path) {
             $paths[] = $post->image_path;
         }

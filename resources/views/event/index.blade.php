@@ -17,7 +17,7 @@
     </section>
 
     <nav class="event-jump-nav" aria-label="En esta página">
-        <a href="#programa">Programa</a><a href="#patrocinadores">Patrocinadores</a><a href="#equipo">Equipo creador</a>
+        <a href="#programa">Programa</a><a href="#patrocinadores">Patrocinadores</a><a href="#equipo">Equipo creador</a><a href="#evidencias">Evidencias</a>
     </nav>
 
     <section class="event-section event-program" id="programa">
@@ -62,6 +62,15 @@
                         <span>(Evidencia de asistencia a todas las actividades de SDS 2026)</span>
                     </figcaption>
                 </figure>
+            @endforeach
+        </div>
+    </section>
+
+    <section class="event-section event-evidence" id="evidencias">
+        <div class="event-section-heading"><div><p class="eyebrow eyebrow-dark">MEMORIA DE LA SEMANA <span class="eyebrow-line"></span> SDS26</p><h2>Evidencias<br><em>por integrante.</em></h2></div><p>Fotograf&iacute;as organizadas por actividad y por la persona del equipo que las comparti&oacute;.</p></div>
+        <div class="event-evidence-links">
+            @foreach(['bryan' => 'Bryan Arturo Hernandez Gutierrez', 'osiris' => 'Osiris Ivania Andrade Campos'] as $slug => $name)
+                <a class="event-evidence-card" href="{{ route('evidence.profile', $slug) }}"><span class="event-evidence-number">SDS26 / EVIDENCIAS</span><strong>{{ $name }}</strong><span>Ver fotograf&iacute;as por actividad <b aria-hidden="true">&#8594;</b></span></a>
             @endforeach
         </div>
     </section>

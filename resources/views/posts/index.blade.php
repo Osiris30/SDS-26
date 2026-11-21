@@ -9,8 +9,8 @@
         <div class="hero-grid"></div>
         <div class="hero-content">
             <p class="eyebrow"><span class="live-dot"></span> UNIVERSIDAD DE EL SALVADOR <span class="eyebrow-line"></span> FMO</p>
-            <h1>La tecnología<br>también puede<br><em>hacer crecer.</em></h1>
-            <p class="hero-lede">Ideas, proyectos y conversaciones que conectan sistemas, sostenibilidad y el futuro de nuestra comunidad.</p>
+            <h1>Una semana para<br>crear, conectar<br><em>y transformar.</em></h1>
+            <p class="hero-lede">Ponencias, talleres y proyectos que inspiran nuevas ideas y celebran el talento de nuestra comunidad de Sistemas.</p>
             <a class="button button-primary" href="#publicaciones">Explorar publicaciones <span>↓</span></a>
         </div>
         <div class="hero-art" aria-hidden="true">
@@ -67,6 +67,9 @@
                         <div class="post-meta"><span>{{ $post->category?->name ?? 'Comunidad' }}</span><time>{{ optional($post->activity_date)->translatedFormat('d M, Y') }}</time></div>
                         <h3><a href="{{ route('posts.show', $post->slug) }}">{{ $post->title }}</a></h3>
                         <p class="post-excerpt">{{ $post->excerpt ?: \Illuminate\Support\Str::limit(strip_tags($post->body), 145) }}</p>
+                        @if($post->category?->slug === 'talleres' && !empty($post->activity_details['instructors']))
+                            <p class="post-facilitator"><strong>Impartido por:</strong> {{ $post->activity_details['instructors'] }}</p>
+                        @endif
                         <div class="post-byline"><span class="byline-dot"></span><span>{{ $post->authors ?: ($post->author?->name ?? 'Equipo SDS26') }}</span><a class="read-more" href="{{ route('posts.show', $post->slug) }}">LEER MÁS <b>↗</b></a></div>
                     </article>
                 @endforeach

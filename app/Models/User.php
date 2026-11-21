@@ -59,4 +59,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class);
     }
+
+    public function activityEvidences(): HasMany
+    {
+        return $this->hasMany(ActivityEvidence::class);
+    }
 }

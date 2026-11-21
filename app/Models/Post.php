@@ -31,6 +31,7 @@ class Post extends Model
                 'speaker' => ['label' => 'Persona expositora', 'placeholder' => 'Nombre y cargo de la persona expositora.', 'type' => 'text', 'max' => 180],
             ],
             'talleres' => [
+                'instructors' => ['label' => 'Persona(s) que impartieron el taller', 'placeholder' => 'Nombres de quienes impartieron el taller; sepáralos con coma si son varios.', 'type' => 'text', 'max' => 180],
                 'tools' => ['label' => 'Herramientas', 'placeholder' => '¿Qué herramientas o materiales utilizaron?'],
                 'procedure' => ['label' => 'Procedimiento', 'placeholder' => 'Describe los pasos principales.'],
                 'practice' => ['label' => 'Práctica realizada', 'placeholder' => '¿Qué hicieron las personas participantes?'],
@@ -100,5 +101,10 @@ class Post extends Model
     public function images(): HasMany
     {
         return $this->hasMany(PostImage::class)->orderBy('position');
+    }
+
+    public function activityEvidences(): HasMany
+    {
+        return $this->hasMany(ActivityEvidence::class)->latest();
     }
 }

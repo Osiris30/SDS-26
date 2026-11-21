@@ -19,8 +19,8 @@ class DatabaseSeeder extends Seeder
 
         foreach ([
             ['Administrador UES', 'admin@ues.edu.sv'],
-            ['Arturo', 'arturo@ues.edu.sv'],
-            ['Osiris', 'osiris@ues.edu.sv'],
+            ['Bryan Arturo Hernandez Gutierrez', 'arturo@ues.edu.sv'],
+            ['Osiris Ivania Andrade Campos', 'osiris@ues.edu.sv'],
         ] as [$name, $email]) {
             User::updateOrCreate(
                 ['email' => $email],

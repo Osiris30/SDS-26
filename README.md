@@ -1,71 +1,138 @@
-# Blog SDS26 · Semana de Sistemas 2026
+# Semana de Sistemas 2026 · Green IoT
 
-Blog de la carrera de Sistemas de la FMO-UES, construido con Laravel 12. El sitio público presenta las actividades y sus aprendizajes. El panel permite a la administración organizar categorías, redactar entradas, gestionar imágenes y programar publicaciones.
+Blog editorial y panel administrativo para documentar las actividades de la Semana de Sistemas 2026 de Ingeniería de Sistemas Informáticos, en la Facultad Multidisciplinaria Oriental de la Universidad de El Salvador.
 
-## Requisitos
+![Laravel](https://img.shields.io/badge/Laravel-12-203c2a?logo=laravel&logoColor=white) ![PHP](https://img.shields.io/badge/PHP-8.2%2B-6bb14d?logo=php&logoColor=white) ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791?logo=postgresql&logoColor=white) ![Green IoT](https://img.shields.io/badge/SDS26-Green%20IoT-78c802)
 
-- PHP 8.2 o superior, Composer y las extensiones requeridas por Laravel.
-- Node.js y npm para compilar los estilos.
-- PostgreSQL con `pdo_pgsql`.
-- Docker Desktop con integración WSL2, o Docker Engine dentro de WSL.
+<p align="center">
+  <img src="public/images/green-iot-field.svg" alt="Ilustración Green IoT de la Semana de Sistemas 2026" width="760">
+</p>
 
-## Preparar en WSL2
+## El proyecto
 
-Desde la carpeta del proyecto:
+El sitio reúne noticias, experiencias y evidencias de las actividades de la carrera. El público puede consultar las publicaciones disponibles y el programa de la semana; el equipo administrador puede organizar el contenido desde un panel protegido.
 
-```bash
-cp .env.example .env
-composer install
-npm install
-```
+## Imágenes del proyecto
 
-Revisa `.env`: configura la conexión de PostgreSQL y cambia `ADMIN_EMAIL` y `ADMIN_PASSWORD` por credenciales propias antes de iniciar. El ejemplo configura PostgreSQL en el puerto `5433`.
+<p align="center">
+  <img src="public/images/patrocinadores.png" alt="Patrocinadores y colaboradores de la Semana de Sistemas" width="300">
+  &nbsp;&nbsp;
+  <img src="public/uploads/posts/covers/GgOphvH0bSbtiwXVL2FrmdHfEgm4VNpkWPq23wNq.png" alt="Evidencia de un prototipo IoT" width="300">
+</p>
 
-Inicia el contenedor de base de datos:
+<p align="center">
+  <img src="public/images/team/team-03.jpeg" alt="Equipo creador durante la Semana de Sistemas" width="390">
+  &nbsp;&nbsp;
+  <img src="public/images/team/team-01.jpeg" alt="Equipo en la exhibición de proyectos" width="390">
+</p>
 
-```bash
-docker compose up -d db
-```
-
-Prepara Laravel, las tablas, el usuario administrador y las categorías de las actividades:
-
-```bash
-php artisan key:generate
-php artisan migrate --seed
-npm run build
-```
-
-El seeder crea las categorías Ponencias, Talleres, Bingo, Feria de proyectos, Comelona de pizza, Torneo de fútbol sala y Parrillada. Sus descripciones muestran los contenidos mínimos sugeridos en el formulario.
-
-Inicia la aplicación:
-
-```bash
-php artisan serve --host=0.0.0.0
-```
-
-Abre `http://localhost:8000`. La portada pública es `/`; el acceso administrativo es `/iniciar-sesion` y el panel está en `/admin`.
-
-## Módulos
+## Funciones
 
 ### Sitio público
 
-- Presentación de la Semana de Sistemas 2026.
-- Listado cronológico por fecha de actividad, búsqueda y filtro por categoría.
-- Detalle de cada entrada con autores, fecha de actividad y publicación, portada, galería y contenido.
-- Los borradores y las publicaciones con fecha futura no son visibles.
-- Diseño adaptable a escritorio y teléfono; no requiere cuenta para leer.
+- Inicio editorial y acceso al programa de la Semana de Sistemas 2026.
+- Publicaciones visibles en orden cronológico, con categoría, fecha, portada y autoría.
+- Búsqueda y filtro por categoría.
+- Detalle de cada publicación con contenido, información propia de su actividad y galería.
+- Páginas públicas de evidencias de Bryan y Osiris, agrupadas por actividad.
+- Diseño adaptable a computadora y teléfono.
 
 ### Administración
 
-- Inicio y cierre de sesión, límite de intentos de acceso y protección de rutas para administradores.
-- Panel con resumen de publicaciones, borradores, publicaciones programadas y categorías.
-- CRUD de publicaciones y categorías.
-- Entradas con título, actividad, fecha, categoría, uno o varios autores, contenido, portada y galería.
-- Validación de imágenes JPG, PNG o WebP (hasta 5 MB cada una); una portada y hasta ocho imágenes adicionales.
-- Guardado como borrador, publicación inmediata o programación por fecha.
+- Inicio y cierre de sesión, con rutas administrativas protegidas.
+- Panel con resumen de publicaciones publicadas, borradores y programadas.
+- Crear, editar, programar y guardar borradores de publicaciones.
+- Campos de contenido que cambian según la actividad: ponencias, talleres, feria de proyectos y actividades de convivencia.
+- Gestión de categorías, portadas y hasta ocho imágenes adicionales por publicación.
+- Carga y eliminación de evidencias individuales asociadas a una actividad publicada; cada cuenta administra solo sus fotos.
+- Validación de formularios, mensajes de error y confirmaciones.
 
-## Datos y archivos
+## Tecnologías
 
-Las migraciones describen usuarios, categorias, publicaciones y galeria. Las imagenes se guardan dentro de `public/uploads` y PostgreSQL conserva sus rutas relativas. Al compartir el proyecto, incluye esa carpeta junto con el respaldo de la base de datos. No hace falta ejecutar `php artisan storage:link`.
+- Laravel 12 y PHP 8.2 o superior.
+- PostgreSQL 16.
+- Blade, CSS, JavaScript y Vite.
+- Docker Compose para ejecutar PostgreSQL localmente.
 
-No se incluyen publicaciones de ejemplo: agrega las historias reales desde el panel. Mantén las reflexiones y evidencias fieles a cada actividad.
+## Preparación local
+
+Los comandos siguientes asumen que tienes PHP, Composer, Node.js y npm instalados. En Windows con WSL, ejecútalos desde Ubuntu dentro de la carpeta del proyecto.
+
+1. Instala las dependencias de PHP y JavaScript:
+
+   ```bash
+   composer install
+   npm install
+   ```
+
+2. Crea la configuración local y genera la clave de Laravel:
+
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+
+   En PowerShell, usa `Copy-Item .env.example .env` en lugar de `cp`.
+
+3. Inicia PostgreSQL:
+
+   ```bash
+   docker compose up -d db
+   ```
+
+   La configuración inicial usa el puerto `5433`, la base `sds26_db` y el usuario `postgres`. Si modificas esos valores en `.env`, Docker Compose también los usará al crear el contenedor.
+
+4. Ejecuta migraciones y datos iniciales:
+
+   ```bash
+   php artisan migrate --seed
+   ```
+
+5. Compila los recursos y levanta Laravel:
+
+   ```bash
+   npm run build
+   php artisan serve
+   ```
+
+   Abre [http://localhost:8000](http://localhost:8000). Para trabajar en los estilos mientras desarrollas, usa `npm run dev` en otra terminal.
+
+## Rutas principales
+
+| Página | Dirección |
+| --- | --- |
+| Inicio y publicaciones | `/` |
+| Programa de la semana | `/semana-2026` |
+| Evidencias de Bryan | `/evidencias/bryan` |
+| Evidencias de Osiris | `/evidencias/osiris` |
+| Acceso administrativo | `/iniciar-sesion` |
+| Panel | `/admin` |
+| Gestión de evidencias personales | `/admin/evidencias` |
+| Publicaciones del panel | `/admin/publicaciones` |
+| Categorías del panel | `/admin/categorias` |
+
+## Imágenes y datos
+
+Las imágenes cargadas se guardan dentro de `public/uploads` en el disco público de Laravel. Esa carpeta forma parte del proyecto para facilitar el traslado de sus archivos; los registros, categorías y usuarios se guardan en PostgreSQL. Al compartir o desplegar el sitio, conserva la carpeta de imágenes junto con el respaldo de la base de datos.
+
+El seeder crea las categorías iniciales y las cuentas administradoras. Revisa `database/seeders/DatabaseSeeder.php` antes de usar el proyecto fuera del entorno local y cambia cualquier contraseña de demostración. No publiques `.env` ni claves reales en GitHub.
+
+## Estructura relevante
+
+```text
+app/                     Modelos y controladores
+database/migrations/     Estructura de PostgreSQL
+database/seeders/        Datos iniciales
+public/images/           Identidad visual y fotografías del equipo
+public/uploads/          Imágenes de las publicaciones
+resources/views/         Vistas Blade públicas y administrativas
+resources/css/           Estilos del sitio
+routes/web.php           Rutas públicas y del panel
+```
+
+## Equipo
+
+- Osiris Ivania Andrade Campos
+- Bryan Arturo Hernandez Gutierrez
+
+Semana de Sistemas 2026 · Ingeniería de Sistemas Informáticos · FMO-UES
