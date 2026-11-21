@@ -4,6 +4,7 @@
 
 @section('content')
 <main>
+    @unless(auth()->user()?->isAdmin())
     <section class="hero">
         <div class="hero-grid"></div>
         <div class="hero-content">
@@ -17,6 +18,7 @@
         </div>
         <div class="hero-bottom"><span>SEMANA DE SISTEMAS 2026</span><span>DESLIZA PARA DESCUBRIR <b>↓</b></span></div>
     </section>
+    @endunless
 
     <section class="event-strip" aria-label="Información de la Semana de Sistemas">
         <div><span class="event-index">01</span><p><b>16—19 NOV</b><small>SEMANA DE SISTEMAS 2026</small></p></div>

@@ -1,35 +1,50 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 560" fill="none">
   <defs>
-    <linearGradient id="sun" x1="196" y1="76" x2="425" y2="330" gradientUnits="userSpaceOnUse"><stop stop-color="#B8F551"/><stop offset=".58" stop-color="#78C802"/><stop offset="1" stop-color="#3E8C27"/></linearGradient>
-    <linearGradient id="land" x1="171" y1="332" x2="560" y2="514" gradientUnits="userSpaceOnUse"><stop stop-color="#77C844"/><stop offset=".45" stop-color="#286C31"/><stop offset="1" stop-color="#103A2E"/></linearGradient>
-    <linearGradient id="glass" x1="351" y1="252" x2="408" y2="414" gradientUnits="userSpaceOnUse"><stop stop-color="#F6FFE9" stop-opacity=".92"/><stop offset="1" stop-color="#9BE44A" stop-opacity=".15"/></linearGradient>
-    <radialGradient id="halo" cx="0" cy="0" r="1" gradientTransform="matrix(0 247 -300 0 356 254)" gradientUnits="userSpaceOnUse"><stop stop-color="#78C802" stop-opacity=".24"/><stop offset="1" stop-color="#78C802" stop-opacity="0"/></radialGradient>
-    <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse"><path d="M42 0H0v42" stroke="#9FB5FF" stroke-opacity=".12"/></pattern>
-    <filter id="blur" x="84" y="14" width="546" height="504" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="34"/></filter>
+    <linearGradient id="platform" x1="150" y1="338" x2="586" y2="502" gradientUnits="userSpaceOnUse"><stop stop-color="#6BB14D"/><stop offset=".52" stop-color="#3F6843"/><stop offset="1" stop-color="#203C2A"/></linearGradient>
+    <linearGradient id="hub" x1="306" y1="166" x2="430" y2="364" gradientUnits="userSpaceOnUse"><stop stop-color="#FFFFFF"/><stop offset="1" stop-color="#DDEBED"/></linearGradient>
+    <linearGradient id="glass" x1="338" y1="242" x2="414" y2="387" gradientUnits="userSpaceOnUse"><stop stop-color="#6BB14D" stop-opacity=".34"/><stop offset="1" stop-color="#203C2A" stop-opacity=".08"/></linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientTransform="matrix(0 184 -222 0 374 286)" gradientUnits="userSpaceOnUse"><stop stop-color="#6BB14D" stop-opacity=".18"/><stop offset="1" stop-color="#6BB14D" stop-opacity="0"/></radialGradient>
+    <pattern id="platformGrid" width="38" height="38" patternUnits="userSpaceOnUse"><path d="M38 0H0v38" stroke="#FFFFFF" stroke-opacity=".14"/></pattern>
+    <filter id="softGlow" x="130" y="34" width="476" height="470" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="28"/></filter>
   </defs>
-  <ellipse cx="360" cy="269" rx="235" ry="205" fill="url(#halo)"/>
-  <path d="M192 117c89-96 232-91 318 11" stroke="#78C802" stroke-opacity=".18" stroke-width="1.5"/>
-  <path d="M137 261c61-157 271-222 425-106" stroke="#53A3B4" stroke-opacity=".4" stroke-width="1.5"/>
-  <path d="M104 303C165 137 414 80 585 200" stroke="#78C802" stroke-opacity=".55" stroke-width="1.5"/>
-  <ellipse cx="361" cy="255" rx="273" ry="132" transform="rotate(-25 361 255)" stroke="#A8D6EF" stroke-opacity=".24"/>
-  <circle cx="353" cy="198" r="137" fill="#78C802" fill-opacity=".22" filter="url(#blur)"/>
-  <circle cx="354" cy="188" r="105" fill="url(#sun)"/>
-  <circle cx="354" cy="188" r="105" stroke="#DAFF9D" stroke-opacity=".64"/>
-  <path d="M150 328 294 276l317 70-142 151-364-82 45-87Z" fill="url(#land)"/>
-  <path d="m150 328 144-52 317 70-142 151-364-82 45-87Z" fill="url(#grid)"/>
-  <path d="m201 335 108-39M242 365l120-44M289 397l135-50M339 429l148-57M392 450l138-54" stroke="#B7E880" stroke-opacity=".5" stroke-width="2"/>
-  <path d="m218 349 50 10m-15-32 52 11m-7 44 54 11m-16-39 56 12m-5 45 58 12m-17-40 59 12" stroke="#E0F5B0" stroke-opacity=".43" stroke-width="2" stroke-linecap="round"/>
-  <path d="M350 283h59v132h-59z" fill="#06184D" fill-opacity=".43" stroke="url(#glass)" stroke-width="3"/>
-  <path d="m374 302-10 19h12l-8 19 21-25h-13l8-13h-10Z" fill="#E8FFBE"/>
-  <path d="M379 359c-10-13-8-24-1-33m2 35c2-14 9-20 17-23m-18 25c-9-7-17-8-23-5m25 7c7-7 14-9 22-8" stroke="#A6E94E" stroke-width="3" stroke-linecap="round"/>
-  <path d="M336 420h88" stroke="#78C802" stroke-width="5" stroke-linecap="round"/>
-  <path d="M338 420c10-14 69-14 84 0-14 12-72 12-84 0Z" fill="#78C802"/>
-  <path d="M492 108c13-22 47-22 60 0m-47 10c7-12 26-12 34 0m-20 12h6" stroke="#D8FFA3" stroke-width="5" stroke-linecap="round"/>
-  <circle cx="522" cy="139" r="5" fill="#78C802"/>
-  <circle cx="563" cy="184" r="35" fill="#060342" stroke="#D8FFA3" stroke-opacity=".74"/>
-  <path d="M549 187c7-10 20-10 27 0m-20 6c3-5 10-5 13 0m-7 5h1" stroke="#D8FFA3" stroke-width="2.5" stroke-linecap="round"/>
-  <text x="550" y="167" fill="#D8FFA3" font-family="Arial,sans-serif" font-size="9" font-weight="700" letter-spacing="2">CAMPO</text>
-  <path d="M146 479h67" stroke="#78C802" stroke-width="2"/>
-  <text x="146" y="500" fill="#78C802" font-family="Arial,sans-serif" font-size="11" font-weight="700" letter-spacing="3">SDS 26 / IoT</text>
-  <text x="146" y="518" fill="#FFFFFF" fill-opacity=".7" font-family="Arial,sans-serif" font-size="9" letter-spacing="2">CULTIVAR UN FUTURO CONECTADO</text>
+  <ellipse cx="370" cy="284" rx="234" ry="206" fill="url(#glow)"/>
+  <ellipse cx="366" cy="278" rx="272" ry="138" transform="rotate(-24 366 278)" stroke="#6BB14D" stroke-opacity=".48"/>
+  <ellipse cx="366" cy="278" rx="226" ry="112" transform="rotate(25 366 278)" stroke="#6BB14D" stroke-opacity=".34"/>
+  <path d="M143 260c76-147 276-200 430-111M176 176c91-94 245-108 347-29" stroke="#203C2A" stroke-opacity=".12"/>
+  <circle cx="365" cy="276" r="168" fill="#6BB14D" fill-opacity=".15" filter="url(#softGlow)"/>
+
+  <path d="m144 360 204-105 245 80-198 137-251-70Z" fill="url(#platform)"/>
+  <path d="m144 360 204-105 245 80-198 137-251-70Z" fill="url(#platformGrid)"/>
+  <path d="m144 360 204-105 245 80" stroke="#FFFFFF" stroke-opacity=".46" stroke-width="2"/>
+  <path d="m197 382 165 46m-114-75 167 47m-113-77 167 47m-112-76 160 45" stroke="#FFFFFF" stroke-opacity=".3" stroke-width="2"/>
+
+  <path d="m207 321 72-37 53 17-72 39-53-19Z" fill="#FFFFFF" fill-opacity=".92"/>
+  <path d="m207 321 53 19v61l-53-19v-61Z" fill="#E7F0EF"/>
+  <path d="m260 340 72-39v62l-72 38v-61Z" fill="#6BB14D"/>
+  <path d="m224 328 37 13m-37 1 37 13m27-10 35-18m-35 30 35-18" stroke="#203C2A" stroke-opacity=".45" stroke-width="3"/>
+
+  <path d="m423 317 60-31 42 14-60 33-42-16Z" fill="#EAF1E9"/>
+  <path d="m423 317 42 16v51l-42-15v-52Z" fill="#D7E6E1"/>
+  <path d="m465 333 60-33v51l-60 33v-51Z" fill="#6BB14D"/>
+  <path d="m438 326 25 9m-25 2 25 9m30-12 24-13m-24 25 24-13" stroke="#FFFFFF" stroke-opacity=".72" stroke-width="3"/>
+
+  <path d="M318 190h102a16 16 0 0 1 16 16v168H302V206a16 16 0 0 1 16-16Z" fill="url(#hub)" stroke="#FFFFFF" stroke-width="3"/>
+  <path d="M313 216h112v129H313V216Z" fill="url(#glass)" stroke="#6BB14D" stroke-opacity=".8" stroke-width="2"/>
+  <path d="M369 238v76m-40-38h80m-68-27 56 54m0-54-56 54" stroke="#203C2A" stroke-opacity=".42" stroke-width="2"/>
+  <circle cx="369" cy="276" r="22" fill="#203C2A"/>
+  <path d="M369 290c-19-14-15-33-2-45 2 16 21 18 22 33 1 10-7 18-20 19Zm0-1c2-13 9-22 19-28" stroke="#78C802" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="369" cy="362" r="7" fill="#6BB14D"/>
+  <path d="M326 383h86" stroke="#203C2A" stroke-opacity=".28" stroke-width="5" stroke-linecap="round"/>
+
+  <path d="M369 231V144m-36 132-75-71m147 71 85-63" stroke="#203C2A" stroke-opacity=".4" stroke-width="2" stroke-dasharray="5 7"/>
+  <circle cx="369" cy="133" r="20" fill="#203C2A"/>
+  <path d="M360 137c5-7 14-7 19 0m-14 4c3-3 7-3 10 0" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="247" cy="190" r="14" fill="#FFFFFF" stroke="#6BB14D" stroke-width="3"/>
+  <path d="m247 181 2 6 6 2-6 2-2 6-2-6-6-2 6-2 2-6Z" fill="#6BB14D"/>
+  <circle cx="491" cy="207" r="14" fill="#FFFFFF" stroke="#6BB14D" stroke-width="3"/>
+  <path d="M484 208c4-6 10-6 14 0m-10 4c2-3 5-3 7 0" stroke="#203C2A" stroke-width="2" stroke-linecap="round"/>
+
+  <path d="M168 484h68" stroke="#6BB14D" stroke-width="3" stroke-linecap="round"/>
+  <text x="168" y="508" fill="#203C2A" font-family="Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="3">SDS 26 / IoT</text>
+  <text x="168" y="528" fill="#53666B" font-family="Arial,sans-serif" font-size="9" letter-spacing="2">CAMPUS CONECTADO</text>
 </svg>

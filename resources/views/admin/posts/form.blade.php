@@ -14,8 +14,20 @@
             <form action="{{ $post->exists ? route('admin.posts.update', $post) : route('admin.posts.store') }}" method="POST" enctype="multipart/form-data" class="auth-form post-form">
                 @csrf @if($post->exists) @method('PUT') @endif
                 <label for="title">Título de la entrada</label><input id="title" name="title" value="{{ old('title', $post->title) }}" maxlength="180" required placeholder="Ej. Aprendizajes de la Feria de Proyectos">
-                <div class="form-two-columns"><div><label for="activity_date">Fecha de la actividad</label><input id="activity_date" name="activity_date" type="date" value="{{ old('activity_date', $post->activity_date?->format('Y-m-d')) }}" required></div><div><label for="category_id">Categoría</label><select id="category_id" name="category_id" required><option value="">Selecciona una categoría</option>@foreach($categories as $category)<option value="{{ $category->id }}" data-guidance="{{ $category->description }}" @selected((string) old('category_id', $post->category_id) === (string) $category->id)>{{ $category->name }}</option>@endforeach</select></div></div>
+                <div class="form-two-columns"><div><label for="activity_date">Fecha de la actividad</label><input id="activity_date" name="activity_date" type="date" value="{{ old('activity_date', $post->activity_date?->format('Y-m-d')) }}" required></div><div><label for="category_id">Categoría</label><select id="category_id" name="category_id" required><option value="">Selecciona una categoría</option>@foreach($categories as $category)<option value="{{ $category->id }}" data-slug="{{ $category->slug }}" data-guidance="{{ $category->description }}" @selected((string) old('category_id', $post->category_id) === (string) $category->id)>{{ $category->name }}</option>@endforeach</select></div></div>
                 <p id="category-guidance" class="category-guidance" aria-live="polite"></p>
+                @php($currentSlug = $categories->firstWhere('id', (int) old('category_id', $post->category_id))?->slug)
+                @foreach($activityFieldSets as $slug => $fields)
+                    @if($categories->contains('slug', $slug))
+                        <fieldset class="activity-fields" data-category-fields="{{ $slug }}" @if($currentSlug !== $slug) hidden @endif>
+                            <legend>Contenido requerido: {{ $categories->firstWhere('slug', $slug)->name }}</legend>
+                            @foreach($fields as $key => $field)
+                                <label for="activity_{{ $key }}">{{ $field['label'] }}</label>
+                                <textarea id="activity_{{ $key }}" name="activity_details[{{ $key }}]" rows="3" maxlength="3000" placeholder="{{ $field['placeholder'] }}" @if($currentSlug === $slug) required @else disabled @endif>{{ old('activity_details.'.$key, $post->activity_details[$key] ?? '') }}</textarea>
+                            @endforeach
+                        </fieldset>
+                    @endif
+                @endforeach
                 @if($categories->isEmpty())<p class="inline-hint">Antes de publicar, <a href="{{ route('admin.categories.create') }}">crea una categoría</a>.</p>@endif
                 <label for="authors">Autor o autores</label><input id="authors" name="authors" value="{{ old('authors', $post->authors ?: auth()->user()->name) }}" maxlength="255" required placeholder="Nombres de quienes elaboraron la entrada"><p class="field-hint">Si son varios, sepáralos con coma.</p>
                 <label for="excerpt">Resumen <span class="optional">OPCIONAL · 300 CARACTERES</span></label><textarea id="excerpt" name="excerpt" rows="3" maxlength="300" placeholder="Una breve introducción para el listado público">{{ old('excerpt', $post->excerpt) }}</textarea>
@@ -44,10 +56,20 @@
 (() => {
     const category = document.getElementById('category_id');
     const guidance = document.getElementById('category-guidance');
+    const fieldsets = Array.from(document.querySelectorAll('[data-category-fields]'));
     const updateGuidance = () => {
         const description = category?.selectedOptions[0]?.dataset.guidance || '';
         guidance.textContent = description ? `Contenido mínimo sugerido: ${description}` : '';
         guidance.hidden = !description;
+        const slug = category?.selectedOptions[0]?.dataset.slug || '';
+        fieldsets.forEach((fieldset) => {
+            const active = fieldset.dataset.categoryFields === slug;
+            fieldset.hidden = !active;
+            fieldset.querySelectorAll('textarea').forEach((field) => {
+                field.disabled = !active;
+                field.required = active;
+            });
+        });
     };
     category?.addEventListener('change', updateGuidance);
     updateGuidance();

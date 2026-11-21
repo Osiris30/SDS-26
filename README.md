@@ -32,7 +32,6 @@ Prepara Laravel, las tablas, el usuario administrador y las categorías de las a
 ```bash
 php artisan key:generate
 php artisan migrate --seed
-php artisan storage:link
 npm run build
 ```
 
@@ -67,6 +66,6 @@ Abre `http://localhost:8000`. La portada pública es `/`; el acceso administrati
 
 ## Datos y archivos
 
-Las migraciones describen usuarios, categorías, publicaciones y galería. Las imágenes se guardan en el disco público de Laravel; `php artisan storage:link` crea el acceso desde el sitio. La migración de ampliación añade fecha de actividad, autores, portada y galería sin reescribir la migración inicial de publicaciones.
+Las migraciones describen usuarios, categorias, publicaciones y galeria. Las imagenes se guardan dentro de `public/uploads` y PostgreSQL conserva sus rutas relativas. Al compartir el proyecto, incluye esa carpeta junto con el respaldo de la base de datos. No hace falta ejecutar `php artisan storage:link`.
 
 No se incluyen publicaciones de ejemplo: agrega las historias reales desde el panel. Mantén las reflexiones y evidencias fieles a cada actividad.

@@ -11,8 +11,19 @@
             @if($post->excerpt)<p class="article-lede">{{ $post->excerpt }}</p>@endif
             <p class="article-author">Autoría: <strong>{{ $post->authors ?: ($post->author?->name ?? 'Equipo SDS26') }}</strong><span> · Publicada {{ $post->published_at?->translatedFormat('d/m/Y') }}</span></p>
             @if($post->images->isNotEmpty())<div class="article-gallery" aria-label="Imágenes de la actividad">@foreach($post->images as $image)<figure><img src="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($image->path) }}" alt="{{ $image->caption ?: 'Imagen de '.$post->title }}">@if($image->caption)<figcaption>{{ $image->caption }}</figcaption>@endif</figure>@endforeach</div>@endif
+            @php($activityDetails = $post->activityDetailsForDisplay())
+            @if($activityDetails)
+                <section class="article-activity-details" aria-label="Contenido de la actividad">
+                    <p class="eyebrow eyebrow-dark">DETALLES DE LA ACTIVIDAD</p>
+                    <dl>
+                        @foreach($activityDetails as $detail)
+                            <div><dt>{{ $detail['label'] }}</dt><dd>{{ $detail['value'] }}</dd></div>
+                        @endforeach
+                    </dl>
+                </section>
+            @endif
             <div class="article-body">{{ $post->body }}</div>
-            <a class="article-back-button" href="{{ route('home') }}#publicaciones">← Explorar más historias</a>
+            <a class="article-back-button" href="{{ route('home') }}#publicaciones">Explorar más historias</a>
         </div>
     </article>
 </main>

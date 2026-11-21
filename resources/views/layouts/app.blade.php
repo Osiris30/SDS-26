@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#060342">
     <title>@yield('title', 'Semana de Sistemas 2026 | Green IoT')</title>
     <meta name="description" content="Noticias, ideas y actividades de la Semana de Sistemas 2026: Green IoT, tecnología y sostenibilidad en la FMO-UES.">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/css/editorial.css', 'resources/js/app.js'])
 </head>
 <body>
     @include('partials.header')

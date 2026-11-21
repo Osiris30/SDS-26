@@ -29,6 +29,7 @@ class AdminPostController extends Controller
         return view('admin.posts.form', [
             'post' => new Post(),
             'categories' => Category::orderBy('name')->get(),
+            'activityFieldSets' => Post::activityFieldSets(),
         ]);
     }
 
@@ -68,7 +69,9 @@ class AdminPostController extends Controller
         return view('admin.posts.form', [
             'post' => $post,
             'categories' => Category::orderBy('name')->get(),
+            'activityFieldSets' => Post::activityFieldSets(),
         ]);
+
     }
 
     public function update(Request $request, Post $post): RedirectResponse
@@ -180,6 +183,24 @@ class AdminPostController extends Controller
                 Validator::make([], ['images' => ['required']], ['images.required' => 'La galería permite un máximo de 8 imágenes; quita algunas o selecciona menos archivos.'])->validate();
             }
 
+        }
+
+        $category = Category::findOrFail($data['category_id']);
+        $fields = Post::activityFieldSets()[$category->slug] ?? [];
+        $detailRules = [];
+        $detailMessages = [];
+        foreach ($fields as $key => $field) {
+            $detailRules["activity_details.$key"] = ['required', 'string', 'max:3000'];
+            $detailMessages["activity_details.$key.required"] = 'Completa «'.$field['label'].'» para esta actividad.';
+        }
+        if ($detailRules !== []) {
+            $details = $request->validate($detailRules, $detailMessages);
+            $data['activity_details'] = [];
+            foreach ($fields as $key => $field) {
+                $data['activity_details'][$key] = trim($details['activity_details'][$key]);
+            }
+        } else {
+            $data['activity_details'] = [];
         }
 
         return $data;
