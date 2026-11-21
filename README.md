@@ -12,19 +12,6 @@ Blog editorial y panel administrativo para documentar las actividades de la Sema
 
 El sitio reúne noticias, experiencias y evidencias de las actividades de la carrera. El público puede consultar las publicaciones disponibles y el programa de la semana; el equipo administrador puede organizar el contenido desde un panel protegido.
 
-## Imágenes del proyecto
-
-<p align="center">
-  <img src="public/images/patrocinadores.png" alt="Patrocinadores y colaboradores de la Semana de Sistemas" width="300">
-  &nbsp;&nbsp;
-  <img src="public/uploads/posts/covers/GgOphvH0bSbtiwXVL2FrmdHfEgm4VNpkWPq23wNq.png" alt="Evidencia de un prototipo IoT" width="300">
-</p>
-
-<p align="center">
-  <img src="public/images/team/team-03.jpeg" alt="Equipo creador durante la Semana de Sistemas" width="390">
-  &nbsp;&nbsp;
-  <img src="public/images/team/team-01.jpeg" alt="Equipo en la exhibición de proyectos" width="390">
-</p>
 
 ## Funciones
 
