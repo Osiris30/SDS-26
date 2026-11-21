@@ -12,8 +12,8 @@
             <a class="nav-preview" href="{{ route('home') }}">Ver sitio <span aria-hidden="true">&#8599;</span></a>
             <form action="{{ route('logout') }}" method="POST" class="nav-form">@csrf<button class="nav-login" type="submit">Salir</button></form>
         @else
-            <a href="{{ route('home') }}" @class(['active' => request()->routeIs('home')])>Actualidad</a>
-            <a href="{{ route('home') }}#categorias">Categor&iacute;as</a>
+            <a href="{{ route('home') }}" @class(['active' => request()->routeIs('home')])>Inicio</a>
+            <a href="{{ route('event') }}" @class(['active' => request()->routeIs('event')])>Semana 2026</a>
             <a class="nav-login" href="{{ route('login') }}">Acceso admin <span aria-hidden="true">&#8599;</span></a>
         @endif
     </nav>

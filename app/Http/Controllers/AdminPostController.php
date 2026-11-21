@@ -40,8 +40,15 @@ class AdminPostController extends Controller
         $cover = $data['image'];
         unset($data['images'], $data['image']);
         $data['user_id'] = $request->user()->id;
+        $data['authors'] = $request->user()->name;
         $data['slug'] = $this->uniqueSlug($data['title']);
-        $data['published_at'] = $data['is_published'] ? ($data['published_at'] ?? now()) : null;
+        $publicationMode = (int) $data['is_published'];
+        $data['is_published'] = $publicationMode !== 0;
+        $data['published_at'] = match ($publicationMode) {
+            0 => null,
+            1 => now(),
+            2 => $data['published_at'],
+        };
         $storedPaths = [];
 
         try {
@@ -84,9 +91,13 @@ class AdminPostController extends Controller
 
         $title = $data['title'];
         $data['slug'] = $this->uniqueSlug($title, $post->id);
-        $data['published_at'] = $data['is_published']
-            ? ($data['published_at'] ?? ($post->published_at ?? now()))
-            : null;
+        $publicationMode = (int) $data['is_published'];
+        $data['is_published'] = $publicationMode !== 0;
+        $data['published_at'] = match ($publicationMode) {
+            0 => null,
+            1 => now(),
+            2 => $data['published_at'],
+        };
 
         $storedPaths = [];
         $oldPaths = [];
@@ -149,11 +160,10 @@ class AdminPostController extends Controller
             'title' => ['required', 'string', 'max:180'],
             'activity_date' => ['required', 'date'],
             'category_id' => ['required', 'integer', 'exists:categories,id'],
-            'authors' => ['required', 'string', 'max:255'],
             'excerpt' => ['nullable', 'string', 'max:300'],
             'body' => ['required', 'string', 'max:50000'],
-            'is_published' => ['required', 'boolean'],
-            'published_at' => ['nullable', 'date'],
+            'is_published' => ['required', Rule::in(['0', '1', '2'])],
+            'published_at' => ['nullable', 'required_if:is_published,2', 'prohibited_unless:is_published,2', 'date', 'after:now'],
             'image' => [$post ? 'nullable' : 'required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
             'images' => ['nullable', 'array', 'max:8'],
             'images.*' => ['image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
@@ -164,7 +174,9 @@ class AdminPostController extends Controller
             'activity_date.required' => 'Indica la fecha de la actividad.',
             'category_id.required' => 'Selecciona una categoría.',
             'category_id.exists' => 'La categoría seleccionada ya no está disponible.',
-            'authors.required' => 'Indica quiénes elaboraron la entrada.',
+            'is_published.in' => 'Selecciona si la publicación se publica, se programa o queda como borrador.',
+            'published_at.required_if' => 'Indica la fecha y hora para programar la publicación.',
+            'published_at.after' => 'La fecha programada debe ser futura.',
             'body.required' => 'Escribe el contenido de la entrada.',
             'image.required' => 'Agrega la imagen principal de la entrada.',
             'image.image' => 'La imagen principal debe ser un archivo de imagen.',
@@ -190,7 +202,7 @@ class AdminPostController extends Controller
         $detailRules = [];
         $detailMessages = [];
         foreach ($fields as $key => $field) {
-            $detailRules["activity_details.$key"] = ['required', 'string', 'max:3000'];
+            $detailRules["activity_details.$key"] = ['required', 'string', 'max:'.($field['max'] ?? 3000)];
             $detailMessages["activity_details.$key.required"] = 'Completa «'.$field['label'].'» para esta actividad.';
         }
         if ($detailRules !== []) {

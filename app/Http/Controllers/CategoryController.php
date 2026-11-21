@@ -13,7 +13,11 @@ class CategoryController extends Controller
     public function index(): View
     {
         return view('admin.categories.index', [
-            'categories' => Category::withCount('posts')->orderBy('name')->paginate(10),
+            'categories' => Category::withCount(['posts as public_posts_count' => fn ($query) => $query
+                ->where('is_published', true)
+                ->whereNotNull('published_at')
+                ->where('published_at', '<=', now()),
+            ])->orderBy('name')->paginate(10),
         ]);
     }
 

@@ -28,10 +28,7 @@ class Post extends Model
     {
         return [
             'ponencias' => [
-                'topic' => ['label' => 'Tema de la ponencia', 'placeholder' => '¿Cuál fue el tema principal?'],
-                'speaker' => ['label' => 'Persona expositora', 'placeholder' => 'Nombre y cargo, si aplica.'],
-                'key_ideas' => ['label' => 'Ideas centrales', 'placeholder' => 'Resume las ideas más importantes.'],
-                'learnings' => ['label' => 'Aprendizajes', 'placeholder' => '¿Qué aprendieron los asistentes?'],
+                'speaker' => ['label' => 'Persona expositora', 'placeholder' => 'Nombre y cargo de la persona expositora.', 'type' => 'text', 'max' => 180],
             ],
             'talleres' => [
                 'tools' => ['label' => 'Herramientas', 'placeholder' => '¿Qué herramientas o materiales utilizaron?'],

@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
         }
 
         $activities = [
-            ['Ponencias', 'ponencias', 'Tema, persona expositora, ideas centrales y aprendizajes.'],
+            ['Ponencias', 'ponencias', 'El titulo indica el tema; persona expositora, ideas centrales y aprendizajes.'],
             ['Talleres', 'talleres', 'Herramientas, procedimiento, práctica y resultados.'],
             ['Bingo', 'bingo', 'Dinámica, experiencia y participación.'],
             ['Feria de proyectos', 'feria-de-proyectos', 'Proyectos visitados, tecnologías e innovación.'],

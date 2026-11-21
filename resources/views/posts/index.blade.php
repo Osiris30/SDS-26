@@ -21,8 +21,8 @@
     @endunless
 
     <section class="event-strip" aria-label="Información de la Semana de Sistemas">
-        <div><span class="event-index">01</span><p><b>16—19 NOV</b><small>SEMANA DE SISTEMAS 2026</small></p></div>
-        <div><span class="event-index">02</span><p><b>FMO · UES</b><small>FACULTAD MULTIDISCIPLINARIA DE OCCIDENTE</small></p></div>
+        <div><span class="event-index">01</span><p><b>16—20 NOV</b><small>SEMANA DE SISTEMAS 2026</small></p></div>
+        <div><span class="event-index">02</span><p><b>FMO · UES</b><small>FACULTAD MULTIDISCIPLINARIA ORIENTAL</small></p></div>
         <div><span class="event-index">03</span><p><b>GREEN IoT</b><small>TECNOLOGÍA CON PROPÓSITO</small></p></div>
     </section>
 
